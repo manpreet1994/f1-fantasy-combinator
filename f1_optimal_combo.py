@@ -5,8 +5,22 @@ Spyder Editor
 """
 #%%
 import json
-TOTAL_COST = 100.0
-top_combination = 25
+import argparse
+
+
+parser = argparse.ArgumentParser(description='Shows combinations of drivers based on avg points on playon')
+
+parser.add_argument('--cost', metavar='t', type=float, help='Total Cost of the team',default=100.0)
+
+parser.add_argument('--combo', metavar='c', type=int, help='Total combinations', default=25)
+
+args = parser.parse_args()
+
+TOTAL_COST = args.cost
+top_combination = args.combo
+
+# TOTAL_COST = 100.0
+# top_combination = 25
 
 f = open('config.json')
 
