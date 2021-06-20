@@ -4,9 +4,8 @@ Spyder Editor
 
 """
 #%%
-import json
 import argparse
-
+import pandas as pd
 
 parser = argparse.ArgumentParser(description='Shows combinations of drivers based on avg points on playon')
 
@@ -19,21 +18,24 @@ args = parser.parse_args()
 TOTAL_COST = args.cost
 top_combination = args.combo
 
-# TOTAL_COST = 100.0
-# top_combination = 25
-
-f = open('config.json')
-
-params = json.load(f)
+teams_info = pd.read_csv('teams.csv')
+drivers_info = pd.read_csv('drivers.csv')
 #%%
 
-player_exclusion = params["exclude"]
+drivers = {}
+for x in zip(drivers_info.cost.to_dict().values(), drivers_info.driver.to_dict().values()): 
+    drivers[x[1]] = x[0]
+    
+teams = {}
+for x in zip(teams_info.cost.to_dict().values(), teams_info.teams.to_dict().values()): 
+    teams[x[1]] = x[0]
 
-drivers = params["drivers"]
+avg_points = {}
+for x in zip(teams_info.avg.to_dict().values(), teams_info.teams.to_dict().values()): 
+    avg_points[x[1]] = x[0]
 
-teams = params["teams"]
-
-avg_points = params["avg_points"]
+for x in zip(drivers_info.avg.to_dict().values(), drivers_info.driver.to_dict().values()): 
+    avg_points[x[1]] = x[0]
 
 #%%
 import itertools
@@ -56,7 +58,7 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
     return lineup
 
 #%%
-combos = list_of_possible_players(drivers, teams, player_exclusion, TOTAL_COST)
+combos = list_of_possible_players(drivers, teams, [], TOTAL_COST)
 combos.sort(key= lambda x: x[-1], reverse=True)
 
 #%%
@@ -85,3 +87,4 @@ for x in combos[:top_combination]:
 
 df = pd.DataFrame(data) 
 print(df)
+
