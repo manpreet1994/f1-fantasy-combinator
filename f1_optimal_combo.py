@@ -76,6 +76,7 @@ data = {
 #%%
 for x in combos[:top_combination]:
     driver_names = list(x[0])
+    driver_names.sort()
     data["dr1"].append(driver_names[0])
     data["dr2"].append(driver_names[1])
     data["dr3"].append(driver_names[2])
@@ -87,4 +88,3 @@ for x in combos[:top_combination]:
 
 df = pd.DataFrame(data) 
 print(df)
-
