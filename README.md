@@ -18,4 +18,7 @@ Output will be a dataframe of 5 drivers, one team, total bugdet and avg points
 
 # Requirement
 pandas
-updated points in predefined csv
+
+Python 3.8.5+
+
+updated prices and points in predefined csv for drivers and teams
