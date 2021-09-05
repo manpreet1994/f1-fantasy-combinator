@@ -13,6 +13,8 @@ parser.add_argument('--cost', metavar='t', type=float, help='Total Cost of the t
 
 parser.add_argument('--combo', metavar='c', type=int, help='Total combinations', default=25)
 
+parser.add_argument('--exclude', metavar='ex', type=str, help='Exclude drivers in comma separated format', default='')
+
 args = parser.parse_args()
 
 TOTAL_COST = args.cost
@@ -20,6 +22,7 @@ top_combination = args.combo
 
 teams_info = pd.read_csv('teams.csv')
 drivers_info = pd.read_csv('drivers.csv')
+exclude_drivers = [x.strip() for x in args.exclude.split(',')]
 #%%
 
 drivers = {}
@@ -50,7 +53,7 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
         for team in teams:
             temp_sum = sum([drivers[x] for x in comb]) + teams[team]
             likely_avg_scores = sum(avg_points[x] for x in comb) + avg_points[team]
-            if temp_sum <= TOTAL_COST:
+            if temp_sum <= TOTAL_COST :
                 lineup.append((comb, team, temp_sum, TOTAL_COST - temp_sum, likely_avg_scores))
     for players in player_exclusion:
         lineup = [x for x in lineup if players not in x[0]]
@@ -58,7 +61,7 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
     return lineup
 
 #%%
-combos = list_of_possible_players(drivers, teams, [], TOTAL_COST)
+combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
 combos.sort(key= lambda x: x[-1], reverse=True)
 
 #%%
