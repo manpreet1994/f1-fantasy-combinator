@@ -6,6 +6,8 @@ Spyder Editor
 #%%
 import argparse
 import pandas as pd
+import time
+from datetime import datetime
 
 parser = argparse.ArgumentParser(description='Shows combinations of drivers based on avg points on playon')
 
@@ -20,9 +22,34 @@ args = parser.parse_args()
 TOTAL_COST = args.cost
 top_combination = args.combo
 
+
 teams_info = pd.read_csv('teams.csv')
 drivers_info = pd.read_csv('drivers.csv')
+
 exclude_drivers = [x.strip() for x in args.exclude.split(',')]
+
+#schedule['date'] = schedule.dates.apply(lambda x: int(x.split("/")[0]))
+#schedule['month'] = schedule.dates.apply(lambda x: int(x.split("/")[1]))
+
+#%%
+
+parser = lambda date: datetime.strptime(date, '%d/%m/%y')
+schedule = pd.read_csv('schedule.csv', parse_dates = ['dates'], date_parser = parser)
+
+def get_round_number(todays_date, todays_month):
+    current_date = '2021'+'-'+str(todays_month)+'-'+str(todays_date)
+    try:
+        ans = schedule.loc[schedule.dates <= str(current_date)].index[-1]
+    except:
+        ans = 0
+    return  ans + 1
+    
+
+#%%
+NUM_OF_RACES = get_round_number(time.localtime()[2], time.localtime()[1])
+
+teams_info['avg'] = teams_info.total_points.apply(lambda x: x/NUM_OF_RACES)
+drivers_info['avg'] = drivers_info.total_points.apply(lambda x: x/NUM_OF_RACES)
 #%%
 
 drivers = {}
