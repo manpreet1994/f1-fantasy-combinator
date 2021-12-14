@@ -22,12 +22,10 @@ args = parser.parse_args()
 TOTAL_COST = args.cost
 top_combination = args.combo
 
-
 teams_info = pd.read_csv('teams.csv')
 drivers_info = pd.read_csv('drivers.csv')
 
 exclude_drivers = [x.strip() for x in args.exclude.split(',')]
-
 #schedule['date'] = schedule.dates.apply(lambda x: int(x.split("/")[0]))
 #schedule['month'] = schedule.dates.apply(lambda x: int(x.split("/")[1]))
 
@@ -88,12 +86,8 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
     return lineup
 
 #%%
-combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
-combos.sort(key= lambda x: x[-1], reverse=True)
-
-#%%
-import pandas as pd
-data = {
+def get_df(combos, top_combination=25):
+    data = {
         "dr1" : [],
         "dr2" : [],
         "dr3" : [],
@@ -103,18 +97,28 @@ data = {
         "Budget" : [],
         "Avgpts" : []
         }
-#%%
-for x in combos[:top_combination]:
-    driver_names = list(x[0])
-    driver_names.sort()
-    data["dr1"].append(driver_names[0])
-    data["dr2"].append(driver_names[1])
-    data["dr3"].append(driver_names[2])
-    data["dr4"].append(driver_names[3])
-    data["dr5"].append(driver_names[4])
-    data["Team"].append(x[1])
-    data["Budget"].append(x[2])
-    data["Avgpts"].append(x[4])    
+    
+    
+    for x in combos[:top_combination]:
+        driver_names = list(x[0])
+        driver_names.sort()
+        data["dr1"].append(driver_names[0])
+        data["dr2"].append(driver_names[1])
+        data["dr3"].append(driver_names[2])
+        data["dr4"].append(driver_names[3])
+        data["dr5"].append(driver_names[4])
+        data["Team"].append(x[1])
+        data["Budget"].append(x[2])
+        data["Avgpts"].append(x[4]) 
+        
+    return pd.DataFrame(data)
 
-df = pd.DataFrame(data) 
-print(df)
+
+    pass
+
+#%%
+if __name__ == "__main__":
+    combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
+    combos.sort(key= lambda x: x[-1], reverse=True)
+    print(get_df(combos))
+    
