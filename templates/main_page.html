@@ -1,7 +1,7 @@
 <html>
 <body>
 
-<h2 style="center">F1-fantasy-combinator</h2>
+<h2 style="text-align: center;">F1-fantasy-combinator-2022</h2>
 
 <style>
   .myDiv {
@@ -13,10 +13,27 @@
 <div class="myDiv">
   <form action="/combos", method="post">
     <label for="fname">Cost:</label><br>
-    <input type="text" id="cost" name="cost" value=100><br>
-    <!-- <label for="lname">Last name:</label><br>
-    <input type="text" id="lname" name="lname" value="Doe">-->
-    <br><br>
+    <input type="text" id="cost" name="check" value=100><br>
+    <br>
+    <label> <b> Exclude the following drivers</b></label><br>
+    <input type="checkbox" id="maz" name="check" value="maz">
+    <label for="vehicle1"> Nikita Mazepin</label><br>
+    <br>
+    <input type="checkbox" id="alb" name="check" value="alb">
+    <label for="vehicle1"> Alex Albon</label><br>
+    <br>
+    <input type="checkbox" id="zh" name="check" value="zh">
+    <label for="vehicle1"> Zhou</label><br>
+    <br>
+    <input type="checkbox" id="sch" name="check" value="sch">
+    <label for="vehicle1"> M. Schmacher</label><br>
+    <br>
+    <input type="checkbox" id="tsu" name="check" value="tsu">
+    <label for="vehicle1"> Tsunoda</label><br>
+    <br>
+    <input type="checkbox" id="bot" name="check" value="bot">
+    <label for="vehicle1"> Bottas</label><br>
+    <br>
     <input type="submit" value="Submit">
   </form> 
 </div>
