@@ -8,6 +8,7 @@ import argparse
 import pandas as pd
 import time
 from datetime import datetime
+import numpy as np
 
 parser = argparse.ArgumentParser(description='Shows combinations of drivers based on avg points on playon')
 
@@ -64,7 +65,10 @@ for x in zip(teams_info.avg.to_dict().values(), teams_info.teams.to_dict().value
 
 for x in zip(drivers_info.avg.to_dict().values(), drivers_info.driver.to_dict().values()): 
     avg_points[x[1]] = x[0]
-
+    
+finish_probability = {}
+for x in zip(drivers_info.finished.to_dict().values(),drivers_info.total_races.to_dict().values(), drivers_info.driver.to_dict().values()): 
+    finish_probability[x[2]] = x[0]/x[1]
 #%%
 import itertools
 # def findsubsets(s, n):
@@ -76,10 +80,13 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
     lineup = []
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
+            # import pdb;pdb.set_trace()
             temp_sum = sum([drivers[x] for x in comb]) + teams[team]
-            likely_avg_scores = sum(avg_points[x] for x in comb) + avg_points[team]
+            likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])/NUM_OF_RACES
+            likely_finish_prob = np.prod([finish_probability[x] for x in comb])
             if temp_sum <= TOTAL_COST :
-                lineup.append((comb, team, temp_sum, TOTAL_COST - temp_sum, likely_avg_scores))
+                lineup.append((comb, team, temp_sum, TOTAL_COST - temp_sum, 
+                               likely_avg_scores, likely_finish_prob))
     for players in player_exclusion:
         lineup = [x for x in lineup if players not in x[0]]
 
@@ -95,7 +102,8 @@ def get_df(combos, top_combination=25):
         "dr5" : [],
         "Team" :[],
         "Budget" : [],
-        "Avgpts" : []
+        "Avgpts" : [],
+        "Finish_probability" : []
         }
     
     
@@ -109,16 +117,14 @@ def get_df(combos, top_combination=25):
         data["dr5"].append(driver_names[4])
         data["Team"].append(x[1])
         data["Budget"].append(x[2])
-        data["Avgpts"].append(x[4]) 
+        data["Avgpts"].append(x[4])
+        data["Finish_probability"].append(x[5])
         
     return pd.DataFrame(data)
-
-
-    pass
 
 #%%
 if __name__ == "__main__":
     combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
-    combos.sort(key= lambda x: x[-1], reverse=True)
+    combos.sort(key= lambda x: x[4]*x[5], reverse=True)
     print(get_df(combos))
     
