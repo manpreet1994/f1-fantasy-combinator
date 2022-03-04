@@ -80,7 +80,6 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
     lineup = []
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
-            # import pdb;pdb.set_trace()
             temp_sum = sum([drivers[x] for x in comb]) + teams[team]
             likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])/NUM_OF_RACES
             likely_finish_prob = np.prod([finish_probability[x] for x in comb])
@@ -125,6 +124,6 @@ def get_df(combos, top_combination=25):
 #%%
 if __name__ == "__main__":
     combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
-    combos.sort(key= lambda x: x[4]*x[5], reverse=True)
+    combos.sort(key= lambda x: (x[4],x[5]), reverse=True)
     print(get_df(combos))
     
