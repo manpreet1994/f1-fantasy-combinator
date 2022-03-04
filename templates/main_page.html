@@ -1,4 +1,22 @@
 <html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#select_all").click(function(){
+    $(":checkbox").prop("checked", true);
+  });
+  
+   $("#reset_all").click(function(){
+    $(":checkbox").prop("checked", false);
+  });
+  
+  
+});
+</script>
+</head>
+
 <body>
 
 <h2 style="text-align: center;">F1-fantasy-combinator-2022</h2>
@@ -12,28 +30,34 @@
 
 <div class="myDiv">
   <form action="/combos", method="post">
+ 
     <label for="fname">Cost:</label><br>
     <input type="text" id="cost" name="check" value=100><br>
     <br>
-    <label> <b> Exclude the following drivers</b></label><br>
-    <input type="checkbox" id="maz" name="check" value="maz">
+    <label> <b> Exclude the following drivers</b></label>
+    <br>
+    <input type="checkbox" id="driver_checkbox1" name="check" value="maz">
     <label for="vehicle1"> Nikita Mazepin</label><br>
-    <br>
-    <input type="checkbox" id="alb" name="check" value="alb">
+   
+    <input type="checkbox" id="driver_checkbox2" name="check" value="alb">
     <label for="vehicle1"> Alex Albon</label><br>
-    <br>
-    <input type="checkbox" id="zh" name="check" value="zh">
+ 
+    <input type="checkbox" id="driver_checkbox3" name="check" value="zh">
     <label for="vehicle1"> Zhou</label><br>
-    <br>
-    <input type="checkbox" id="sch" name="check" value="sch">
+  
+    <input type="checkbox" id="driver_checkbox4" name="check" value="sch">
     <label for="vehicle1"> M. Schmacher</label><br>
-    <br>
-    <input type="checkbox" id="tsu" name="check" value="tsu">
+   
+    <input type="checkbox" id="driver_checkbox5" name="check" value="tsu">
     <label for="vehicle1"> Tsunoda</label><br>
-    <br>
-    <input type="checkbox" id="bot" name="check" value="bot">
-    <label for="vehicle1"> Bottas</label><br>
-    <br>
+ 
+    <input type="checkbox" id="driver_checkbox6" name="check" value="bot">
+    <label for="vehicle1"> Bottas</label><br><br>
+    
+    <button id="select_all" type="button">Select All</button>
+    
+    <button id="reset_all" type="button">Reset</button><br><br>
+  
     <input type="submit" value="Submit">
   </form> 
 </div>
