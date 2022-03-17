@@ -53,16 +53,14 @@ for x in zip(drivers_info.finished.to_dict().values(),drivers_info.total_races.t
 def third_party_call():
     #send an acknowledgement
     
-    value = request.form.getlist('check')
-    cost = float(value[0])
-    
-    exclude_drivers = value[1:]
-    print("Total cost =", cost)
-    combos = list_of_possible_players(drivers, teams, exclude_drivers, cost)
+    exclude_drivers = request.form.getlist('exclude')
+    cost = float(request.form.getlist('cost')[0])
+    include_drivers = request.form.getlist('include')
+     
+    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, cost)
     combos.sort(key= lambda x: (x[4],x[5]), reverse=True)
 
     output_df = df_to_html(combos)
-    
    
     # return Response(json.dumps({"status": "ok"}),status=200,  content_type='application/json')
     return output_df.to_html(justify='center')

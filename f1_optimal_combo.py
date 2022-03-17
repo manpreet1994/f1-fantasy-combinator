@@ -27,6 +27,8 @@ teams_info = pd.read_csv('teams.csv')
 drivers_info = pd.read_csv('drivers.csv')
 
 exclude_drivers = [x.strip() for x in args.exclude.split(',')]
+
+include_drivers = [x.strip() for x in args.exclude.split(',')]
 #schedule['date'] = schedule.dates.apply(lambda x: int(x.split("/")[0]))
 #schedule['month'] = schedule.dates.apply(lambda x: int(x.split("/")[1]))
 
@@ -40,7 +42,7 @@ def get_round_number(todays_date, todays_month):
     try:
         ans = schedule.loc[schedule.dates <= str(current_date)].index[-1]
     except:
-        ans = 0
+        ans = 20
     return  ans + 1
     
 
@@ -76,7 +78,7 @@ def findsubsets(s, n):
     return [set(i) for i in itertools.combinations(s, n)]
 
 #%%
-def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolerance=None):
+def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion, TOTAL_COST, tolerance=None):
     lineup = []
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
@@ -88,6 +90,9 @@ def list_of_possible_players(drivers, teams, player_exclusion,TOTAL_COST, tolera
                                likely_avg_scores, likely_finish_prob))
     for players in player_exclusion:
         lineup = [x for x in lineup if players not in x[0]]
+    
+    for players in player_inclusion:
+        lineup = [x for x in lineup if players in x[0]]
 
     return lineup
 
@@ -123,7 +128,7 @@ def get_df(combos, top_combination=25):
 
 #%%
 if __name__ == "__main__":
-    combos = list_of_possible_players(drivers, teams, exclude_drivers, TOTAL_COST)
+    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, TOTAL_COST)
     combos.sort(key= lambda x: (x[4],x[5]), reverse=True)
     print(get_df(combos))
     

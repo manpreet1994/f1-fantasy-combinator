@@ -4,12 +4,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-  $("#select_all").click(function(){
-    $(":checkbox").prop("checked", true);
+  $("#select_all_include").click(function(){
+    $(".include_driver_checkbox:checkbox").prop("checked", true);
   });
   
-   $("#reset_all").click(function(){
-    $(":checkbox").prop("checked", false);
+   $("#reset_all_include").click(function(){
+    $(".include_driver_checkbox:checkbox").prop("checked", false);
+  });
+  
+    $("#select_all_exclude").click(function(){
+    $(".exclude_driver_checkbox:checkbox").prop("checked", true);
+  });
+  
+   $("#reset_all_exclude").click(function(){
+    $(".exclude_driver_checkbox:checkbox").prop("checked", false);
   });
   
   
@@ -26,39 +34,113 @@ $(document).ready(function(){
     background-color: white;
     text-align: center;
   }
+  
+  .exclude_drivers{
+  border-style: dotted;
+  }
+  
+   .include_drivers{
+  border-style: dotted;
+  }
+  
+  .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+  
   </style>
 
 <div class="myDiv">
   <form action="/combos", method="post">
  
     <label for="fname">Cost:</label><br>
-    <input type="text" id="cost" name="check" value=100><br>
+    <input type="text" id="cost" name="cost" value=100><br>
     <br>
+    <div class = "myDiv">
+     <label> <b> Include the following drivers</b></label>
+    <br>
+        <table class= "center">
+        <tr>
+             <td><input class="include_driver_checkbox" type="checkbox" id="driver8" name="include" value="ham"></td>
+             <td> Lewis Hamilton </td>
+        </tr>
+        
+        <tr>
+             <td><input class="include_driver_checkbox" type="checkbox" id="driver9" name="include" value="ver"></td>
+             <td>Max Verstappen</td>
+        </tr>
+        
+        <tr>
+             <td><input type="checkbox" class="include_driver_checkbox" id="driver10" name="include" value="per"></td>
+             <td>Perez</td>
+        </tr>
+        
+        <tr>
+             <td><input class="include_driver_checkbox" type="checkbox" id="driver11" name="include" value="nor"></td>
+             <td>Lando Norris</td>
+        </tr>
+        
+        <tr>
+             <td><input type="checkbox" class="include_driver_checkbox" id="driver12" name="include" value="rus"></td>
+             <td>George Russell</td>
+        </tr>
+        
+        </table>
+              
+    <button id="select_all_include" type="button">Select All</button>
+    
+    <button id="reset_all_include" type="button">Reset</button><br><br>
+ 
+    </div>
+       
+    <div class="myDiv">
     <label> <b> Exclude the following drivers</b></label>
     <br>
-    <input type="checkbox" id="driver_checkbox1" name="check" value="maz">
-    <label for="vehicle1"> Nikita Mazepin</label><br>
-   
-    <input type="checkbox" id="driver_checkbox2" name="check" value="alb">
-    <label for="vehicle1"> Alex Albon</label><br>
- 
-    <input type="checkbox" id="driver_checkbox3" name="check" value="zh">
-    <label for="vehicle1"> Zhou</label><br>
-  
-    <input type="checkbox" id="driver_checkbox4" name="check" value="sch">
-    <label for="vehicle1"> M. Schmacher</label><br>
-   
-    <input type="checkbox" id="driver_checkbox5" name="check" value="tsu">
-    <label for="vehicle1"> Tsunoda</label><br>
- 
-    <input type="checkbox" id="driver_checkbox6" name="check" value="bot">
-    <label for="vehicle1"> Bottas</label><br><br>
     
-    <button id="select_all" type="button">Select All</button>
+    <table class= "center">
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox1" name="exclude" value="maz"></td>
+             <td> Magnesun </td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox2" name="exclude" value="alb"></td>
+             <td>Alex Albon</td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox3" name="exclude" value="zh"></td>
+             <td>Zhou</td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox4" name="exclude" value="sch"></td>
+             <td>Schaumacher</td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox7" name="exclude" value="lat"></td>
+             <td>Latifi</td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox8" name="exclude" value="str"></td>
+             <td>Stroll</td>
+        </tr>
+        
+        <tr>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox5" name="exclude" value="tsu"></td>
+             <td>Tsunoda</td>
+        </tr>
+                
+    </table>
+    </div>
     
-    <button id="reset_all" type="button">Reset</button><br><br>
+    <button id="select_all_exclude" type="button">Select All</button>
+    
+    <button id="reset_all_exclude" type="button">Reset</button><br><br>
   
-    <input type="submit" value="Submit">
+    <input type="submit" value="Show all Combinations">
   </form> 
 </div>
 </body>
