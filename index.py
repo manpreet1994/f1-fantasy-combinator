@@ -56,8 +56,9 @@ def third_party_call():
     exclude_drivers = request.form.getlist('exclude')
     cost = float(request.form.getlist('cost')[0])
     include_drivers = request.form.getlist('include')
+    include_team = request.form.get('include_team')
      
-    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, cost)
+    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, cost, include_team = include_team)
     combos.sort(key= lambda x: (x[4],x[5]), reverse=True)
 
     output_df = df_to_html(combos)

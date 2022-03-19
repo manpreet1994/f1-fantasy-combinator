@@ -85,7 +85,29 @@ $(document).ready(function(){
              <td>George Russell</td>
         </tr>
         
+         <tr>
+             <td><input type="checkbox" class="include_driver_checkbox" id="driver13" name="include" value="lec"></td>
+             <td>Charles Leclerc</td>
+        </tr>
+        
+         <tr>
+             <td><input type="checkbox" class="include_driver_checkbox" id="driver14" name="include" value="sai"></td>
+             <td>C Sainz</td>
+        </tr>
+        
+       
+        
         </table>
+        <br>
+          <label for="cars"><b>Fix the team: </b></label>
+          <select name="include_team" id="include_team">
+            <option value="">Any</option>
+            <option value="redbull">Redbull</option>
+            <option value="ferrari">Ferrari</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="mclaren">Mclaren</option>
+          </select> 
+          <br><br>
               
     <button id="select_all_include" type="button">Select All</button>
     
@@ -99,8 +121,8 @@ $(document).ready(function(){
     
     <table class= "center">
         <tr>
-             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox1" name="exclude" value="maz"></td>
-             <td> Magnesun </td>
+             <td><input class="exclude_driver_checkbox" type="checkbox" id="driver_checkbox1" name="exclude" value="mag"></td>
+             <td> K Mag </td>
         </tr>
         
         <tr>

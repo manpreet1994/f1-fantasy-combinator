@@ -29,6 +29,7 @@ drivers_info = pd.read_csv('drivers.csv')
 exclude_drivers = [x.strip() for x in args.exclude.split(',')]
 
 include_drivers = [x.strip() for x in args.exclude.split(',')]
+
 #schedule['date'] = schedule.dates.apply(lambda x: int(x.split("/")[0]))
 #schedule['month'] = schedule.dates.apply(lambda x: int(x.split("/")[1]))
 
@@ -78,7 +79,7 @@ def findsubsets(s, n):
     return [set(i) for i in itertools.combinations(s, n)]
 
 #%%
-def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion, TOTAL_COST, tolerance=None):
+def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion, TOTAL_COST, tolerance=None, include_team = ""):
     lineup = []
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
@@ -93,7 +94,11 @@ def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion,
     
     for players in player_inclusion:
         lineup = [x for x in lineup if players in x[0]]
-
+    
+    if include_team != "":     
+        # print("team = ", list(set([x[0] for x in lineup])))
+        lineup = [x for x in lineup if x[1] == include_team]
+        
     return lineup
 
 #%%
@@ -128,7 +133,7 @@ def get_df(combos, top_combination=25):
 
 #%%
 if __name__ == "__main__":
-    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, TOTAL_COST)
+    combos = list_of_possible_players(drivers, teams, exclude_drivers, include_drivers, TOTAL_COST, include_team= "haas")
     combos.sort(key= lambda x: (x[4],x[5]), reverse=True)
     print(get_df(combos))
     
