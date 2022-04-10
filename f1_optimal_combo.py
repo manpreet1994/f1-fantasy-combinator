@@ -39,7 +39,7 @@ parser = lambda date: datetime.strptime(date, '%d/%m/%y')
 schedule = pd.read_csv('schedule.csv', parse_dates = ['dates'], date_parser = parser)
 
 def get_round_number(todays_date, todays_month):
-    current_date = '2021'+'-'+str(todays_month)+'-'+str(todays_date)
+    current_date = '2022'+'-'+str(todays_month)+'-'+str(todays_date)
     try:
         ans = schedule.loc[schedule.dates <= str(current_date)].index[-1]
     except:
@@ -55,12 +55,12 @@ drivers_info['avg'] = drivers_info.total_points.apply(lambda x: x/NUM_OF_RACES)
 #%%
 
 drivers = {}
-for x in zip(drivers_info.cost.to_dict().values(), drivers_info.driver.to_dict().values()): 
-    drivers[x[1]] = x[0]
-    
+for x in zip(drivers_info.cost.to_dict().values(), drivers_info.driver.to_dict().values(), drivers_info.total_points.to_dict().values()):
+    drivers[x[1]] = {'cost': x[0], 'score': x[2]}
+
 teams = {}
-for x in zip(teams_info.cost.to_dict().values(), teams_info.teams.to_dict().values()): 
-    teams[x[1]] = x[0]
+for x in zip(teams_info.cost.to_dict().values(), teams_info.teams.to_dict().values(), teams_info.total_points.to_dict().values()):
+    teams[x[1]] = {'cost':x[0], 'score':x[2]}
 
 avg_points = {}
 for x in zip(teams_info.avg.to_dict().values(), teams_info.teams.to_dict().values()): 
@@ -81,14 +81,19 @@ def findsubsets(s, n):
 #%%
 def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion, TOTAL_COST, tolerance=None, include_team = ""):
     lineup = []
+
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
-            temp_sum = sum([drivers[x] for x in comb]) + teams[team]
+            temp_sum = sum([drivers[x]['cost'] for x in comb]) + teams[team]['cost']
             likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])/NUM_OF_RACES
             likely_finish_prob = np.prod([finish_probability[x] for x in comb])
             if temp_sum <= TOTAL_COST :
                 lineup.append((comb, team, temp_sum, TOTAL_COST - temp_sum, 
                                likely_avg_scores, likely_finish_prob))
+                
+    
+    # import pdb;pdb.set_trace()
+
     for players in player_exclusion:
         lineup = [x for x in lineup if players not in x[0]]
     

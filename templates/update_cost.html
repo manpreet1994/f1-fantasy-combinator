@@ -1,0 +1,329 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const main_json = JSON.parse({{jsonfile|tojson}});
+    console.log(main_json);
+$(document).ready(function(){
+
+  $("#lec_cost").val(main_json.lec.cost)
+  $("#lec_score").val(main_json.lec.score)
+  $("#sai_cost").val(main_json.sai.cost)
+  $("#sai_score").val(main_json.lec.cost)
+  $("#ver_cost").val(main_json.lec.cost)
+  $("#ver_score").val(main_json.lec.cost)
+  $("#rus_cost").val(main_json.rus.cost)
+  $("#rus_score").val(main_json.rus.score)
+  $("#ham_cost").val(main_json.ham.cost)
+  $("#ham_score").val(main_json.ham.score)
+  $("#oco_cost").val(main_json.oco.cost)
+  $("#oco_score").val(main_json.oco.score)
+  $("#per_cost").val(main_json.per.cost)
+  $("#per_score").val(main_json.per.score)
+  $("#mag_cost").val(main_json.mag.cost)
+  $("#mag_score").val(main_json.mag.score)
+  $("#bot_cost").val(main_json.bot.cost)
+  $("#bot_score").val(main_json.bot.score)
+  $("#nor_cost").val(main_json.lec.cost)
+  $("#nor_score").val(main_json.lec.score)
+  $("#tsu_cost").val(main_json.tsu.cost)
+  $("#tsu_score").val(main_json.tsu.score)
+  $("#gas_cost").val(main_json.gas.cost)
+  $("#gas_score").val(main_json.gas.score)
+  $("#alo_cost").val(main_json.alo.cost)
+  $("#alo_score").val(main_json.alo.score)
+  $("#zh_cost").val(main_json.zh.cost)
+  $("#zh_score").val(main_json.zh.score)
+  $("#sch_cost").val(main_json.sch.cost)
+  $("#sch_score").val(main_json.sch.score)
+  $("#str_cost").val(main_json.str.cost)
+  $("#str_score").val(main_json.str.score)
+  $("#alb_cost").val(main_json.alb.cost)
+  $("#alb_score").val(main_json.alb.score)
+  $("#ric_cost").val(main_json.ric.cost)
+  $("#ric_score").val(main_json.ric.score)
+  $("#lat_cost").val(main_json.lat.cost)
+  $("#lat_score").val(main_json.lat.score)  
+  $("#vet_cost").val(main_json.vet.cost)
+  $("#vet_score").val(main_json.vet.score)
+  
+  $("#ferrari_cost").val(main_json.ferrari.cost)
+  $("#redbull_cost").val(main_json.redbull.cost)
+  $("#mclaren_cost").val(main_json.mclaren.cost)
+  $("#mercedes_cost").val(main_json.mercedes.cost)
+  $("#aston_martin_cost").val(main_json.aston_martin.cost)
+  $("#alpha_tauri_cost").val(main_json.alpha_tauri.cost)
+  $("#alpine_cost").val(main_json.alpine.cost)
+  $("#alpha_romeo_cost").val(main_json.alpha_romeo.cost)
+  $("#haas_cost").val(main_json.haas.cost)
+  $("#williams_cost").val(main_json.williams.cost)
+  $("#ferrari_score").val(main_json.ferrari.score)
+  $("#redbull_score").val(main_json.redbull.score)
+  $("#mercedes_score").val(main_json.mercedes.score)
+  $("#mclaren_score").val(main_json.mclaren.score)
+  $("#haas_score").val(main_json.haas.score)
+  $("#williams_score").val(main_json.williams.score)
+  $("#alpine_score").val(main_json.alpine.score)
+  $("#alpha_romeo_score").val(main_json.alpha_romeo.score)
+  $("#alpha_tauri_score").val(main_json.alpha_tauri.score)
+  $("#aston_martin_score").val(main_json.aston_martin.score)
+
+});
+   
+</script>
+</head>
+
+<body>
+
+<h2 style="text-align: center;">F1-fantasy-combinator-2022</h2>
+
+<style>
+  .myDiv {
+    background-color: white;
+    text-align: center;
+  }
+  
+  .submit_button {
+    background-color: white;
+    text-align: center;
+  }
+  
+  .drivers {
+    float:center;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .constructor {
+    float:right;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .exclude_drivers{
+  border-style: dotted;
+  }
+  
+   .include_drivers{
+  border-style: dotted;
+  }
+  
+  .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+  </style>
+
+  <form action="/update", method="post">
+    <div class = "drivers">
+        <table class= "center">
+        <tr>
+            <td> Driver </td>
+            <td> Cost </td>
+            <td> Score </td>
+        </tr>
+        <tr>
+             <td> Charles Leclerc </td>
+             <td><input id="lec_cost" name= "lec_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="lec_score" name="lec_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Carlos Sainz </td>
+             <td><input id="sai_cost" name="sai_cost" type="number" step="0.1" value=1 style="width:50px;" ><td>
+             <td><input id="sai_score" name="sai_score" type="number" step="0.1" value=2 style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Max Verstapen </td>
+             <td><input id="ver_cost" name="ver_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="ver_score" name="ver_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>George Russell </td>
+             <td><input id="rus_cost" name="rus_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="rus_score" name="rus_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Lewis Hamilton</td>
+             <td><input id="ham_cost" name="ham_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="ham_score" name="ham_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+         <tr>
+             <td>Esteban Ocon</td>
+             <td><input id="oco_cost" name="oco_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="oco_score" name="oco_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+         <tr>
+             <td>Sergio Perez</td>
+             <td><input id="per_cost" name="per_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="per_score" name="per_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Kevin Magnessun </td>
+             <td><input id="mag_cost" name="mag_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="mag_score" name="mag_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Valteri Bottas </td>
+             <td><input id="bot_cost" name="bot_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="bot_score" name="bot_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Lando Norris</td>
+             <td><input id="nor_cost" name="nor_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="nor_score" name="nor_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Yuki Tsunoda </td>
+             <td><input id="tsu_cost" name="tsu_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="tsu_score" name="tsu_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Piere Gasly </td>
+             <td><input id="gas_cost" name="gas_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="gas_score" name="gas_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td>Fernando Alonso</td>
+             <td><input id="alo_cost" name="alo_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="alo_score" name="alo_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Zhou Guanyu</td>
+             <td><input id="zh_cost" name="zh_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="zh_score" name="zh_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Mick Schaumacher</td>
+             <td><input id="sch_cost" name="sch_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="sch_score" name="sch_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Lance Stroll </td>
+             <td><input id="str_cost" name="str_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="str_score" name="str_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+       
+        <tr>
+             <td>  Alex Albon </td>
+             <td><input id="alb_cost" name="alb_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="alb_score" name="alb_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Daniel Ricciardo </td>
+             <td><input id="ric_cost" name="ric_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="ric_score" name="ric_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        
+        <tr>
+             <td> Nicolas Latifi </td>
+             <td><input id="lat_cost" name="lat_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="lat_score" name="lat_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+        
+        <tr>
+             <td> Sebastian Vettel </td>
+             <td><input id="vet_cost" name="vet_cost" type="number" step="0.1" style="width:50px;"><td>
+             <td><input id="vet_score" name="vet_score" type="number" step="0.1" style="width:50px;"><td>
+        </tr>
+                
+    </table>
+    </div>
+    
+    <div class="contructor">
+    <table class= "center">
+    <tr>
+    <th> Team </th>
+    <th> Cost </th>
+    <th> Score </th>
+    </tr>
+    <tr>
+        
+         <td> Ferrari </td>
+         <td><input id="ferrari_cost" name="ferrari_cost"  type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="ferrari_score" name="ferrari_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td> Red Bull </td>
+         <td><input id="redbull_cost" name="redbull_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="redbull_score" name="redbull_score"  type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td> Mercedes  </td>
+         <td><input id="mercedes_cost" name="mercedes_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="mercedes_score" name="mercedes_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td> Aston Martin </td>
+         <td><input id="aston_martin_cost" name="aston_martin_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="aston_martin_score" name="aston_martin_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td>Alpine</td>
+         <td><input id="alpine_cost" name="alpine_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="alpine_score" name="alpine_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+     <tr>
+         <td>Alpha Tauri</td>
+         <td><input id="alpha_tauri_cost" name="alpha_tauri_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="alpha_tauri_score" name="alpha_tauri_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+     <tr>
+         <td>Alpha Romeo </td>
+         <td><input id="alpha_romeo_cost" name="alpha_romeo_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="alpha_romeo_score" name="alpha_romeo_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td> Haas </td>
+         <td><input id="haas_cost"  name="haas_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="haas_score" name="haas_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td>Williams </td>
+         <td><input id="williams_cost" name="williams_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="williams_score" name="williams_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+    
+    <tr>
+         <td>McLaren</td>
+         <td><input id="mclaren_cost" name="mclaren_cost" type="number" step="0.1" style="width:50px;"><td>
+         <td><input id="mclaren_score" name="mclaren_score" type="number" step="0.1" style="width:50px;"><td>
+    </tr>
+             
+    </table>
+    </div>
+    
+    <br>
+    <div class="submit_button">
+    <input type="submit" value="Update the scores">
+    </div>
+  </form> 
+
+</body>
+</html>
