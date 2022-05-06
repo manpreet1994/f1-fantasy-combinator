@@ -58,7 +58,6 @@ def third_party_call():
 @app.route('/view_cost')
 def update():
     drivers, teams, _ = get_latest_details()
-    print(drivers)
     combined_json = {}
     for driver in drivers:
         combined_json[driver] = drivers[driver]
