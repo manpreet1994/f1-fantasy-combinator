@@ -26,6 +26,9 @@ top_combination = args.combo
 teams_info = pd.read_csv('teams.csv')
 drivers_info = pd.read_csv('drivers.csv')
 
+# teams_info = pd.read_json('teams.json')
+# drivers_info = pd.read_json('drivers.json')
+
 exclude_drivers = [x.strip() for x in args.exclude.split(',')]
 
 include_drivers = [x.strip() for x in args.exclude.split(',')]
@@ -50,28 +53,40 @@ def get_round_number(todays_date, todays_month):
 #%%
 NUM_OF_RACES = get_round_number(time.localtime()[2], time.localtime()[1])
 
-teams_info['avg'] = teams_info.total_points.apply(lambda x: x/NUM_OF_RACES)
-drivers_info['avg'] = drivers_info.total_points.apply(lambda x: x/NUM_OF_RACES)
+# teams_info['avg'] = teams_info.score.apply(lambda x: x/NUM_OF_RACES)
+# drivers_info['avg'] = drivers_info.score.apply(lambda x: x/NUM_OF_RACES)
 #%%
 
-drivers = {}
-for x in zip(drivers_info.cost.to_dict().values(), drivers_info.driver.to_dict().values(), drivers_info.total_points.to_dict().values()):
-    drivers[x[1]] = {'cost': x[0], 'score': x[2]}
-
-teams = {}
-for x in zip(teams_info.cost.to_dict().values(), teams_info.teams.to_dict().values(), teams_info.total_points.to_dict().values()):
-    teams[x[1]] = {'cost':x[0], 'score':x[2]}
-
-avg_points = {}
-for x in zip(teams_info.avg.to_dict().values(), teams_info.teams.to_dict().values()): 
-    avg_points[x[1]] = x[0]
-
-for x in zip(drivers_info.avg.to_dict().values(), drivers_info.driver.to_dict().values()): 
-    avg_points[x[1]] = x[0]
+def get_latest_details():
+    teams_info = pd.read_csv('teams.csv')
+    drivers_info = pd.read_csv('drivers.csv')
     
-finish_probability = {}
-for x in zip(drivers_info.finished.to_dict().values(),drivers_info.total_races.to_dict().values(), drivers_info.driver.to_dict().values()): 
-    finish_probability[x[2]] = x[0]/x[1]
+    teams_info['avg'] = teams_info.score.apply(lambda x: x/NUM_OF_RACES)
+    drivers_info['avg'] = drivers_info.score.apply(lambda x: x/NUM_OF_RACES)
+    
+    drivers = {}
+    
+    for x in zip(drivers_info.cost.to_dict().values(), drivers_info.driver.to_dict().values(), drivers_info.score.to_dict().values(), drivers_info.dnf.to_dict().values()):
+        drivers[x[1]] = {'cost': x[0], 'score': x[2], 'dnf': x[3]}
+        
+    teams = {}
+    for x in zip(teams_info.cost.to_dict().values(), teams_info.teams.to_dict().values(), teams_info.score.to_dict().values()):
+        teams[x[1]] = {'cost':x[0], 'score':x[2]}
+        
+    avg_points = {}
+    for x in zip(teams_info.avg.to_dict().values(), teams_info.teams.to_dict().values()): 
+        avg_points[x[1]] = x[0]
+        
+    for x in zip(drivers_info.avg.to_dict().values(), drivers_info.driver.to_dict().values()): 
+        avg_points[x[1]] = x[0]
+        
+    # finish_probability = {}
+    # for x in zip(drivers_info.finished.to_dict().values(),drivers_info.total_races.to_dict().values(), drivers_info.driver.to_dict().values()): 
+    #     finish_probability[x[2]] = x[0]/x[1]
+        
+    return drivers, teams, avg_points
+    
+
 #%%
 import itertools
 # def findsubsets(s, n):
@@ -81,19 +96,19 @@ def findsubsets(s, n):
 #%%
 def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion, TOTAL_COST, tolerance=None, include_team = ""):
     lineup = []
+    
+    drivers, teams, avg_points = get_latest_details()
 
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
             temp_sum = sum([drivers[x]['cost'] for x in comb]) + teams[team]['cost']
             likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])/NUM_OF_RACES
-            likely_finish_prob = np.prod([finish_probability[x] for x in comb])
+            # likely_finish_prob = np.prod([finish_probability[x] for x in comb])
+            dnf_sum = sum([drivers[x]['dnf'] for x in comb])
             if temp_sum <= TOTAL_COST :
                 lineup.append((comb, team, temp_sum, TOTAL_COST - temp_sum, 
-                               likely_avg_scores, likely_finish_prob))
+                               likely_avg_scores, dnf_sum))
                 
-    
-    # import pdb;pdb.set_trace()
-
     for players in player_exclusion:
         lineup = [x for x in lineup if players not in x[0]]
     
@@ -117,7 +132,7 @@ def get_df(combos, top_combination=25):
         "Team" :[],
         "Budget" : [],
         "Avgpts" : [],
-        "Finish_probability" : []
+        "DNF" : []
         }
     
     
@@ -132,8 +147,8 @@ def get_df(combos, top_combination=25):
         data["Team"].append(x[1])
         data["Budget"].append(x[2])
         data["Avgpts"].append(x[4])
-        data["Finish_probability"].append(x[5])
-        
+        data["DNF"].append(x[5])
+            
     return pd.DataFrame(data)
 
 #%%
