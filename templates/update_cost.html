@@ -4,14 +4,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     const main_json = JSON.parse({{jsonfile|tojson}});
+    console.log(main_json);
 $(document).ready(function(){
 
   $("#lec_cost").val(main_json.lec.cost)
   $("#lec_score").val(main_json.lec.score)
   $("#sai_cost").val(main_json.sai.cost)
-  $("#sai_score").val(main_json.lec.cost)
-  $("#ver_cost").val(main_json.lec.cost)
-  $("#ver_score").val(main_json.lec.cost)
+  $("#sai_score").val(main_json.sai.score)
+  $("#ver_cost").val(main_json.ver.cost)
+  $("#ver_score").val(main_json.ver.score)
   $("#rus_cost").val(main_json.rus.cost)
   $("#rus_score").val(main_json.rus.score)
   $("#ham_cost").val(main_json.ham.cost)
@@ -24,8 +25,8 @@ $(document).ready(function(){
   $("#mag_score").val(main_json.mag.score)
   $("#bot_cost").val(main_json.bot.cost)
   $("#bot_score").val(main_json.bot.score)
-  $("#nor_cost").val(main_json.lec.cost)
-  $("#nor_score").val(main_json.lec.score)
+  $("#nor_cost").val(main_json.nor.cost)
+  $("#nor_score").val(main_json.nor.score)
   $("#tsu_cost").val(main_json.tsu.cost)
   $("#tsu_score").val(main_json.tsu.score)
   $("#gas_cost").val(main_json.gas.cost)
