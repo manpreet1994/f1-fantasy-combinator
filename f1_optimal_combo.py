@@ -102,7 +102,7 @@ def list_of_possible_players(drivers, teams, player_exclusion, player_inclusion,
     for comb in (findsubsets(drivers, 5)):
         for team in teams:
             temp_sum = sum([drivers[x]['cost'] for x in comb]) + teams[team]['cost']
-            likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])/NUM_OF_RACES
+            likely_avg_scores = (sum(avg_points[x] for x in comb) + avg_points[team])
             # likely_finish_prob = np.prod([finish_probability[x] for x in comb])
             dnf_sum = sum([drivers[x]['dnf'] for x in comb])
             if temp_sum <= TOTAL_COST :
